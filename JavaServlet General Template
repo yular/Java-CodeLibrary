@@ -51,9 +51,10 @@ public class Template extends HttpServlet {
 		//Call function(s) to process user request
 		
 		//Return the final result to the user. The string can be a particular file format like XML or JSON.
-  	PrintWriter out = response.getWriter();
-  	out.println(result);
-    	
+  		PrintWriter out = response.getWriter();
+  		out.println(result);
+    		out.flush();
+    		out.close();
 	}
 
 	/**
