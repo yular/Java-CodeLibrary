@@ -1,0 +1,314 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+	<!-- Global default dependency checking -->
+	<!-- default-dependency-check="all"> -->
+	
+	<!-- reference “dateFormat” bean as a factory bean -->
+<!--	<bean id="dateFormat" class="java.text.SimpleDateFormat" >
+		<constructor-arg value="yyyy-MM-dd" />
+	</bean> -->
+	
+	<!-- Enable the RequiredAnnotationBeanPostProcessor to aware of the @Required annotation in bean configuration file -->
+	<context:annotation-config />
+	
+<!--	<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" /> -->
+	
+	<!-- Declares a CustomDateEditor class to convert String into java.util.Date. -->
+	<bean id="dateEditor" class="org.springframework.beans.propertyeditors.CustomDateEditor">
+		<constructor-arg>
+			<bean class="java.text.SimpleDateFormat">
+				<constructor-arg value="yyyy-MM-dd"/>
+			</bean>
+		</constructor-arg>
+		<constructor-arg value="true" />
+	</bean>
+	
+	<!-- Declares a “CustomEditorConfigurer” to make Spring convert bean properties whose type is java.util.Date. -->
+	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="customEditors">
+			<map>
+				<entry key="java.util.Date">
+					<ref local="dateEditor" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="templateOutputHelper" class="com.yulartech.templateOutput.OutputHelper">
+
+		<!-- Different Ways to call constructor of templateOutputHelper -->
+		<constructor-arg>
+			<ref bean="JsonOutputGenerator"/>
+<!--			<bean class="com.yulartech.templateOutput.CsvOutputGenerator" /> -->
+		</constructor-arg>
+		<!-- Call the Setter method of templateOutputHelper class -->
+<!-- 		<property name="outputGenerator" ref="CsvOutputGenerator" /> -->
+<!--   		<property name="outputGenerator" ref="JsonOutputGenerator" /> -->
+	</bean>
+	
+	<bean id="templateNumberBean" class="com.yulartech.templateDomain.Number">
+		<property name="no" value="999" />
+	</bean>
+	
+	
+	<bean id="templateItemBean" class="com.yulartech.templateDomain.Item">
+		<property name="name" value="itemA" />
+		<property name="qty" value="10" />
+		<property name="qtyOnHand" value="99" />
+	</bean>
+	
+	<!-- Spring Auto-wiring: byName, byType, constructor and autodetect + dependency-check -->
+<!-- 	<bean id="templateCustomerBean" class="com.yulartech.templateDomain.Customer" autowire="byName"/> -->
+
+ 	
+	<bean id="templateCustomerBean" class="com.yulartech.templateDomain.Customer" >
+		
+		<constructor-arg type="java.lang.String">
+			<value>Yular</value>
+		</constructor-arg>
+		
+		<constructor-arg type="java.lang.String">
+			<value>188</value>
+		</constructor-arg>
+		
+		<constructor-arg type="int">
+			<value>18</value>
+		</constructor-arg>
+		
+		<property name="url" value="http://yular.github.io" />
+		
+		<!-- Spring EL -->
+<!-- 	<property name="item" value="#{templateItemBean}"/>
+		<property name="itemName" value="#{templateItemBean.name}"/> 
+		<property name="testEqual" value="#{1 == 1}" />
+	  <property name="testNotEqual" value="#{1 != 1}" />
+	  <property name="testLessThan" value="#{1 lt 1}" />
+	  <property name="testLessThanOrEqual" value="#{1 le 1}" />
+	  <property name="testGreaterThan" value="#{1 > 1}" />
+	  <property name="testGreaterThanOrEqual" value="#{1 >= 1}" />
+		
+	  <property name="testAnd" value="#{templateNumberBean.no == 999 and templateNumberBean.no lt 900}" />
+	  <property name="testOr" value="#{templateNumberBean.no == 999 or templateNumberBean.no lt 900}" />
+	  <property name="testNot" value="#{!(templateNumberBean.no == 999)}" />
+		
+	  <property name="testAdd" value="#{1 + 1}" />
+	  <property name="testAddString" value="#{'1' + '@' + '1'}" />
+	  <property name="testSubtraction" value="#{1 - 1}" />
+	  <property name="testMultiplication" value="#{1 * 1}" />
+	  <property name="testDivision" value="#{10 / 2}" />
+	  <property name="testModulus" value="#{10 % 10}" />
+	  <property name="testExponentialPower" value="#{2 ^ 2}" /> 
+	  <property name="warning" value="#{templateItemBean.qtyOnHand < 100 ? true : false}" /> -->
+  	
+	</bean>
+	
+	<bean id="templateFileGenerator" class="com.yulartech.templateOutput.FileGenerator">
+		<property name="name" value="XCC ~ " />
+		<property name="type" value="TXT" />
+	</bean>
+
+
+ 	
+	<bean id="templateConsumerBean" class="com.yulartech.templateDomain.Consumer" >
+		<!-- dependency-check="simple"> -->
+		<!--  dependency-check="objects"> -->
+		<!--  dependency-check="all"> -->
+ 		<constructor-arg>
+			<bean class="com.yulartech.templateDomain.Person">
+				<property name="name" value="ybc" />
+				<property name="address" value="address1" />
+				<property name="age" value="18" />
+			</bean>
+		</constructor-arg>
+		
+		<property name="person">
+			<bean class="com.yulartech.templateDomain.Person">
+				<property name="name" value="ybc" />
+				<property name="address" value="address1" />
+				<property name="age" value="18" />
+			</bean>
+		</property>
+
+		<!-- java.util.list; -->
+		<!-- The ‘ListFactoryBean‘ class (org.springframework.beans.factory.config.ListFactoryBean) will create a concrete List collection class (ArrayList and LinkedList). -->
+		<property name="lists">
+		<!--	<list> -->
+			<util:list list-class="java.util.ArrayList">
+				<value>1</value>
+				<ref bean="templatePersonBean1" />
+				<bean class="com.yulartech.templateDomain.Person">
+					<property name="name" value="yularList" />
+					<property name="address" value="address x"/>
+					<property name="age" value="18" />
+				</bean>
+			</util:list>
+		<!-- 	</list> -->
+		</property>
+		
+		<!-- java.util.set -->
+		<!-- The ‘SetFactoryBean‘ class (org.springframework.beans.factory.config.SetFactoryBean) will create a concrete Set collection (HashSet and TreeSet). -->
+		<property name="sets">
+		<!-- <set> -->
+			<util:set set-class="java.util.HashSet">
+				<value>2</value>
+				<ref bean="templatePersonBean1" />
+				<bean class="com.yulartech.templateDomain.Person">
+					<property name="name" value="yularSet" />
+					<property name="address" value="address y"/>
+					<property name="age" value="18" />
+				</bean>
+			</util:set>
+		<!-- </set> -->
+		</property>
+		
+		<!-- java.util.map -->
+		<!-- The ‘MapFactoryBean‘ class (org.springframework.beans.factory.config.MapFactoryBean) will create a concrete Set collection (HashMap and TreeMap). -->
+		<property name="maps">
+		<!--	<map> -->
+			<util:map map-class="java.util.HashMap">
+				<entry key="Key 1" value="1"/>
+				<entry key="Key 2" value-ref="templatePersonBean1"/>
+				<entry key="Key 3">
+					<bean class="com.yulartech.templateDomain.Person">
+						<property name="name" value="yularMap" />
+						<property name="address" value="address z"/>
+						<property name="age" value="18" />
+					</bean>
+				</entry>
+			</util:map>
+		<!-- </map> -->
+		</property>
+		
+		<!-- java.util.properties -->
+		<property name="pros">
+			<props>
+				<prop key="admin">admin@nospam.com</prop>
+				<prop key="support">support@nospam.com</prop>
+			</props>
+		</property>
+		
+		<!-- java.util.date (Not Customer Editor) -->
+<!--		<property name="date">
+			<bean factory-bean="dateFormat" factory-method="parse">
+				<constructor-arg value="2015-10-28" />
+			</bean>
+		</property>
+-->
+		<property name="date" value="2015-10-28" />
+		
+	</bean>
+	
+	<bean id="templatePersonBean1" class="com.yulartech.templateDomain.Person">
+		<property name="name" value="ybc" />
+		<property name="address" value="address 1" />
+		<property name="age" value="18" />
+	</bean>
+	
+	<bean id="templatePersonBean2" class="com.yulartech.templateDomain.Person">
+		<property name="name" value="xcc" />
+		<property name="address" value="address 2" />
+		<property name="age" value="19" />
+	</bean>
+	
+	<!-- Singleton (default) scope -->
+<!-- 	<bean id="templateCustomerService" class="com.yulartech.templateService.CustomerService"/> -->
+	
+	<!-- Prototype scope -->
+<!--  	<bean id="templateCustomerService" class="com.yulartech.templateService.CustomerService" scope="prototype"/> -->
+
+	<bean id="templateCustomerService" class="com.yulartech.templateService.CustomerService">
+		<!-- Remove the import libraries in Java file and add the below line -->
+		<!-- init-method="initIt" destroy-method="cleanUp"> -->
+		<property name="message" value="I'm property message" />
+		<property name="name" value="yular" />
+		<property name="url" value="http://yular.github.io" />
+    </bean>
+    
+    <bean id="hijackBeforeMethodBean" class="com.yulartech.aoptest.HijackBeforeMethod" />
+	<bean id="hijackAfterMethodBean" class="com.yulartech.aoptest.HijackAfterMethod" />
+	<bean id="hijackThrowExceptionBean" class="com.yulartech.aoptest.HijackThrowException" />
+	<bean id="hijackAroundMethodBean" class="com.yulartech.aoptest.HijackAroundMethod" />
+	
+	<bean id="customerPointcut" class="org.springframework.aop.support.NameMatchMethodPointcut">
+		<property name="mappedName" value="printName" />
+	</bean>
+	
+	<bean id="customerAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="pointcut" ref="customerPointcut" />
+		<property name="advice" ref="hijackAroundMethodBean" />
+	</bean>
+	
+<!-- 		
+	<bean id="templateCustomerServiceProxy"  class="org.springframework.aop.framework.ProxyFactoryBean">
+
+		<property name="target" ref="templateCustomerService" />
+
+		<property name="interceptorNames">
+			<list> -->
+		<!-- 		<value>customerAdvisor</value> -->
+	<!-- 			<value>hijackBeforeMethodBean</value> -->
+		<!--		<value>hijackAfterMethodBean</value>
+				<value>hijackThrowExceptionBean</value>
+				<value>hijackAroundMethodBean</value> -->
+	<!-- 		</list>
+		</property>
+	</bean> -->
+	
+	<!-- If any of the beans is matched by an advisor, Spring will create a proxy for it automatically. -->
+<!-- 	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" /> -->
+	
+	<!-- Bean Configuration Inheritance -->
+	<!-- <bean id="templateBaseCustomersChina" class="com.yulartech.templateDomain.Customers" > -->
+	<bean id="templateBaseCustomersChina" abstract="true">
+		<property name="country" value="P.R. China" />
+	</bean>
+
+	<bean id="templateCustomersBean" parent="templateBaseCustomersChina" class="com.yulartech.templateDomain.Customers" >
+<!-- 		<property name="country" value="USA" /> -->
+		<property name="action" value="buy" />
+		<property name="type" value="1" />
+	</bean>
+	
+	<bean id="templateCustomerDBDAO" class="com.yulartech.templateDao.JdbcCustomerDBDAO">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- AOP Anntoation Part -->
+<!-- 	<aop:aspectj-autoproxy />
+	<bean id="customerBo" class="com.yulartech.aoptest.CustomerBoImpl" /> -->
+	<!-- Aspect -->
+<!-- <bean id="logAspect" class="com.yulartech.aoptest.LoggingAspect" /> -->
+
+	<!-- Stock business object -->
+ <!--  <bean id="templateStockBo" class="com.yulartech.templateDao.StockBoImpl" >
+   		<property name="stockDao" ref="templateStockDao" />
+   </bean>
+ -->
+   <!-- Stock Data Access Object -->
+ <!--  <bean id="templateStockDao" class="com.yulartech.templateDao.StockDaoImpl" >
+   		<property name="sessionFactory" ref="sessionFactory"></property>
+   </bean>
+-->
+<!-- 
+	<bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+		   <props>
+			<prop key="save">PROPAGATION_REQUIRED</prop>
+		   </props>
+		</property>
+    </bean>
+-->
+</beans>
