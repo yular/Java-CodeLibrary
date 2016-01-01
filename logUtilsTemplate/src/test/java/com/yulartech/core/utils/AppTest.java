@@ -1,4 +1,4 @@
-package com.yulartech.app;
+package com.yulartech.core.utils;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
