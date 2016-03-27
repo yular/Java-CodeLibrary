@@ -1,0 +1,31 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.yulartech.template</groupId>
+  <artifactId>multimodulesTemplate</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>multimodulesTemplate</name>
+  <description>Parent builder for all application modules</description>
+
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <jdk.version>1.8</jdk.version>
+    <junit.version>4.11</junit.version>
+    <logback.version>1.0.13</logback.version>
+  </properties>
+
+  <modules>
+    <module>core</module>
+    <module>webapp</module>
+  </modules>
+
+  <scm>
+    <developerConnection>git@github.com</developerConnection>
+    <connection>git@github.com</connection>
+    <url>git@github.com</url>
+  </scm>
+
+</project>
