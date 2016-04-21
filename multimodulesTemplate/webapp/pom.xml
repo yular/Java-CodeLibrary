@@ -20,74 +20,81 @@
     <spring.version>4.1.1.RELEASE</spring.version>
     <jstl.version>1.2</jstl.version>
     <jcl-over-slf4j.version>1.7.5</jcl-over-slf4j.version>
+    <jackson.version>2.4.1.1</jackson.version>
   </properties>
 
   <dependencies>
   
    <dependency> 
-     <groupId>com.yulartech.template</groupId>
-     <artifactId>core</artifactId>
-     <version>1.0-SNAPSHOT</version>
+      <groupId>com.yulartech.template</groupId>
+      <artifactId>core</artifactId>
+      <version>1.0-SNAPSHOT</version>
     </dependency>
 
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${junit.version}</version>
-      <scope>test</scope>
+       <groupId>junit</groupId>
+       <artifactId>junit</artifactId>
+       <version>${junit.version}</version>
+       <scope>test</scope>
     </dependency>
 
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>3.1.0</version>
-      <scope>provided</scope>
+       <groupId>javax.servlet</groupId>
+       <artifactId>javax.servlet-api</artifactId>
+       <version>3.1.0</version>
+       <scope>provided</scope>
     </dependency>
 
     <!-- Spring Core -->
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-core</artifactId>
-      <version>${spring.version}</version>
-      <exclusions>
-	<exclusion>
-	  <groupId>commons-logging</groupId>
-	  <artifactId>commons-logging</artifactId>
-        </exclusion>
-      </exclusions>
+       <groupId>org.springframework</groupId>
+       <artifactId>spring-core</artifactId>
+       <version>${spring.version}</version>
+       <exclusions>
+		 <exclusion>
+	  		<groupId>commons-logging</groupId>
+	  		<artifactId>commons-logging</artifactId>
+         </exclusion>
+       </exclusions>
      </dependency>
 
      <dependency>
-	<groupId>org.slf4j</groupId>
-	<artifactId>jcl-over-slf4j</artifactId>
-	<version>${jcl-over-slf4j.version}</version>
+		<groupId>org.slf4j</groupId>
+		<artifactId>jcl-over-slf4j</artifactId>
+		<version>${jcl-over-slf4j.version}</version>
      </dependency>
 
      <dependency>
-	<groupId>ch.qos.logback</groupId>
-	<artifactId>logback-classic</artifactId>
-	<version>${logback.version}</version>
+		<groupId>ch.qos.logback</groupId>
+		<artifactId>logback-classic</artifactId>
+		<version>${logback.version}</version>
      </dependency>
 
      <dependency>
-	<groupId>org.springframework</groupId>
-	<artifactId>spring-web</artifactId>
-	<version>${spring.version}</version>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-web</artifactId>
+		<version>${spring.version}</version>
      </dependency>
 
      <dependency>
-	<groupId>org.springframework</groupId>
+		<groupId>org.springframework</groupId>
         <artifactId>spring-webmvc</artifactId>
-	<version>${spring.version}</version>
+		<version>${spring.version}</version>
      </dependency>
 
      <!-- jstl -->
      <dependency>
-	<groupId>jstl</groupId>
-	<artifactId>jstl</artifactId>
-	<version>${jstl.version}</version>
+		<groupId>jstl</groupId>
+		<artifactId>jstl</artifactId>
+		<version>${jstl.version}</version>
      </dependency>
 
+	 <!-- Jackson JSON Mapper -->
+	 <dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-databind</artifactId>
+	    <version>${jackson.version}</version>
+	</dependency>
 
   </dependencies>
 
