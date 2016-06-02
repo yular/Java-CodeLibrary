@@ -21,6 +21,7 @@
     <jstl.version>1.2</jstl.version>
     <jcl-over-slf4j.version>1.7.5</jcl-over-slf4j.version>
     <jackson.version>2.4.1.1</jackson.version>
+    <json.version>2.7.3</json.version>
   </properties>
 
   <dependencies>
@@ -95,6 +96,16 @@
 	    <artifactId>jackson-databind</artifactId>
 	    <version>${jackson.version}</version>
 	</dependency>
+	<dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>${json.version}</version>
+     </dependency>
+     <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${json.version}</version>
+     </dependency>
 
   </dependencies>
 

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.yulartech.template.functions.*;
+//import com.yulartech.template.functions.*;
 
 @Controller
 public class BaseController {
@@ -32,7 +32,7 @@ public class BaseController {
     public String welcomeName(@PathVariable String name, ModelMap model){
 
 		model.addAttribute("message", "Welcome : " + name);
-		model.addAttribute("message", "Reverse Name : " + StringUtils.reverseString(name));
+//		model.addAttribute("message", "Reverse Name : " + StringUtils.reverseString(name));
 		model.addAttribute("counter", ++counter);
 		logger.debug("[welcomeName] counter : {}", counter);
 
