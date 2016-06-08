@@ -1,4 +1,4 @@
-<html>
+<html lang="en" ng-app="templateapp">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,10 +10,49 @@
   <link rel="stylesheet" type="text/css" href="resources/css/index.css">
 </head>
 <body>
-<h1>Maven + Spring MVC Web Project Example</h1>
- 
-<h2>Message : ${message}</h2>
-<h2>Counter : ${counter}</h2>
+
+	<div class="container">
+		<h1>Maven + Spring MVC Web Project Example</h1>
+
+		<h2>Message : ${message}</h2>
+		<h2>Counter : ${counter}</h2>
+
+		<div ng-controller="templateservicectrl">
+			<div class="row">
+				<div class="col-sm-4 col-md-4">
+					<input type="text" class="form-control" ng-model="RequestDTO.val" />
+				</div>
+				<div class="col-sm-4 col-md-4">
+				</div>
+				<div class="col-sm-4 col-md-4">
+					<a class="btn btn-large btn-primary" ng-click="getDTO()">submit</a>
+				</div>
+			</div>
+
+			<br>
+
+			<div class="row">
+				<div class="col-sm-4 col-md-4">
+					<input type="text" class="form-control" ng-model="res.val" />
+				</div>
+				<div class="col-sm-4 col-md-4">
+					<ul ng-repeat="x in res.lst">
+						<li>{{ x }}</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<footer class="footer">
+		<div class="container">
+		  <div class="row row-spacer" id="footer-info">
+		    <p class="text-muted">&copy; 2016 BaiChuan Yang All rights reserved.</p>
+		    <p class="text-muted">Powered by BaiChuan Yang</p>
+		  </div>
+		</div>
+	</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-resource.min.js"></script>

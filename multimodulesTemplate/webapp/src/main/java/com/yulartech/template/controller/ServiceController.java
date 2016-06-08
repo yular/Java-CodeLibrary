@@ -30,7 +30,7 @@ public class ServiceController {
 	
 	@RequestMapping(value="/getdtoresult", method=RequestMethod.POST)
     @ResponseBody //@RequestBody RequestDTO request //@RequestParam(value = "name", required = true) String name  
-    public ResponseDTO getShopInfo(@RequestBody RequestDTO request, HttpServletResponse response){
+    public ResponseDTO getDTOInfo(@RequestBody RequestDTO request, HttpServletResponse response){
     	ResponseDTO res = new ResponseDTO();
     	res.setVal(request.getVal());
     	res.setLst(request.getLst());
