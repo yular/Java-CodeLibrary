@@ -13,6 +13,8 @@ import com.yulartech.template.domain.Shop;
 import com.yulartech.template.dto.RequestDTO;
 import com.yulartech.template.dto.ResponseDTO;
 
+import com.yulartech.template.functions.*;
+
 @Controller
 @RequestMapping("/service")
 public class ServiceController {
@@ -32,7 +34,7 @@ public class ServiceController {
     @ResponseBody //@RequestBody RequestDTO request //@RequestParam(value = "name", required = true) String name  
     public ResponseDTO getDTOInfo(@RequestBody RequestDTO request, HttpServletResponse response){
     	ResponseDTO res = new ResponseDTO();
-    	res.setVal(request.getVal());
+    	res.setVal(Integer.parseInt(StringUtils.reverseString(String.valueOf(request.getVal()))));
     	res.setLst(request.getLst());
         return res;
     }
