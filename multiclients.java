@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class multiclients {
-	public static void main(String[] args){
+	public static void main( String[] args ){
 		try{
 			Socket socket = new Socket("127.0.0.1", 2013);
 			socket.setSoTimeout(60000);
