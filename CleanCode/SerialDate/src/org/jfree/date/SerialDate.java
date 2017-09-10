@@ -12,4 +12,5 @@ public abstract class SerialDate implements Comparable, Serializable {
 
     /** Date format symbols */
     public static final DateFormatSymbols DATE_FORMAT_SYMBOLS = new SimpleDateFormat().getDateFormatSymbols();
+
 }
